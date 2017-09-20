@@ -1,6 +1,9 @@
 import tensorflow as tf
 import numpy as np
 from tqdm import tqdm
+import sys, os
+cwd = os.getcwd()
+sys.path.append(cwd)
 import RBM
 import rnn_rbm #The hyperparameters of the RBM and RNN-RBM are specified in the rnn_rbm file
 import midi_manipulation 

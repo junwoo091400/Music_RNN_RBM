@@ -93,7 +93,8 @@ def rnnrbm():
         [_, _, _, _, _, music] = tf.while_loop(lambda count, num_iter, *args: count < num_iter,
                                                          generate_recurrence, [tf.constant(1, tf.int32), tf.constant(num), U,
                                                          tf.zeros([1, n_visible], tf.float32), x, 
-                                                         tf.zeros([1, n_visible],  tf.float32)])
+                                                         tf.zeros([1, n_visible],  tf.float32)],[tf.TensorShape([]),
+							tf.TensorShape([]),U.shape,tf.TensorShape([1,n_visible]),x.shape,tf.TensorShape([None,n_visible])])
         return music
 
     #Reshape our bias matrices to be the same size as the batch.

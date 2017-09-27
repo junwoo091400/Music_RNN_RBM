@@ -22,7 +22,7 @@ def get_song(path):
     return song
 
 def get_songs(path):
-    files = glob.glob('{}/*.mid*'.format(path))
+    files = glob.glob('{}/*/*.mid*'.format(path)) # The File must be 'directly' below the given 'path'. No recurrent path reading accounted YET. [Junwoo]
     songs = []
     for f in tqdm(files):
         try:

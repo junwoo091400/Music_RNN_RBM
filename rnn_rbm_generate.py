@@ -19,7 +19,7 @@ import midi_manipulation
 
 
 num = 3 #The number of songs to generate
-primer_song = '../../Simple20PianoRoll_MIDI/2007_scanned_rolls_pianola.co.nz/AfricanHunter(1909)_Universal-93075.mid' #The path to the song to use to prime the network
+primer_song = 'Pop_Music_Midi' #The path to the song to use to prime the network
 
 def main(saved_weights_path):
     #This function takes as input the path to the weights of the network

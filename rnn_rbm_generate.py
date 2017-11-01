@@ -22,7 +22,7 @@ import random
 num = 3 #The number of songs to generate
 songsList = os.listdir('Pop_Music_Midi')
 randomSong = songsList[random.randint(0,len(songsList)-1)]
-primer_song = 'Pop_Music_Midi' + randomSong #The path to the song to use to prime the network
+primer_song = 'Pop_Music_Midi' + '/' + randomSong #The path to the song to use to prime the network
 print('Primer Song = ',primer_song)
 
 def main(saved_weights_path):

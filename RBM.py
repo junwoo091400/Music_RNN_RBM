@@ -30,7 +30,7 @@ def gibbs_sample(x, W, bv, bh, k):
     [_, _, x_sample] = tf.while_loop(lambda count, num_iter, *args: count < num_iter,
                                          gibbs_step, [ct, tf.constant(k), x],None, 1, False)
     #We need this in order to stop tensorflow from propagating gradients back through the gibbs step
-    #x_sample = tf.stop_gradient(x_sample)
+    x_sample = tf.stop_gradient(x_sample)
     return x_sample
 
 def get_free_energy_cost(x, W, bv, bh, k):   

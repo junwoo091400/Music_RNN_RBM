@@ -17,7 +17,7 @@ saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the i
 
 def main(num_epochs):
     #First, we build the model and get pointers to the model parameters
-    x, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
+    x, output1, output2, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
 
     #The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
     tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]
@@ -48,10 +48,10 @@ def main(num_epochs):
                 for i in range(1, len(song), batch_size):
                     tr_x = song[i:i + batch_size] 
                     alpha = min(0.01, 0.1/float(i)) #We decrease the learning rate according to a schedule.
-                    _, C = sess.run([updt, cost], feed_dict={x: tr_x, lr: alpha}) 
+                    _, out1, out2, C = sess.run([updt, output1, output2, cost], feed_dict={x: tr_x, lr: alpha}) 
                     costs.append(C) 
             #Print the progress at epoch
-            print "epoch: {} cost: {} time: {}".format(epoch, np.mean(costs), time.time()-start)
+            print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, np.mean(out1), np.mean(out2) ,np.mean(costs), time.time()-start)
             print
             #Here we save the weights of the model every few epochs
             if (epoch + 1) % epochs_to_save == 0: 

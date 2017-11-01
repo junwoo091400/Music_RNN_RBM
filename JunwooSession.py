@@ -4,4 +4,5 @@ import tensorflow as tf
 import numpy as np
 from tqdm import tqdm
 import rnn_rbm
-import midi_manipulation 
+import midi_manipulation as mma
+import RBM

@@ -40,6 +40,7 @@ def get_free_energy_cost(x, W, bv, bh, k):
 
     def F(xx):
         #The function computes the free energy of a visible vector. 
+        print  tf.reduce_sum(tf.log(1 + tf.exp(tf.matmul(xx, W) + bh)), 1) - tf.matmul(xx, tf.transpose(bv))
         return -tf.reduce_sum(tf.log(1 + tf.exp(tf.matmul(xx, W) + bh)), 1) - tf.matmul(xx, tf.transpose(bv))
 
     #The cost is based on the difference in free energy between x and xsample

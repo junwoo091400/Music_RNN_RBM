@@ -12,6 +12,7 @@ import RBM
 import rnn_rbm
 import time
 import midi_manipulation
+import random
 
 """
     This file contains the code for running a tensorflow session to generate music
@@ -19,11 +20,13 @@ import midi_manipulation
 
 
 num = 3 #The number of songs to generate
-primer_song = 'Pop_Music_Midi' #The path to the song to use to prime the network
+songsList = os.listdir('Pop_Music_Midi')
+randomSong = songsList[random.randint(0,len(randomSong)-1)]
+primer_song = 'Pop_Music_Midi' + randomSong #The path to the song to use to prime the network
 
 def main(saved_weights_path):
     #This function takes as input the path to the weights of the network
-    x, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()#First we build and get the parameters odf the network
+    x,_,_, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()#First we build and get the parameters odf the network
 
     tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]
 

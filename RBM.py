@@ -44,8 +44,8 @@ def get_free_energy_cost(x, W, bv, bh, k):
         return -tf.reduce_sum(tf.log(1 + tf.exp(tf.matmul(xx, W) + bh)), 1) - tf.matmul(xx, tf.transpose(bv))
 
     #The cost is based on the difference in free energy between x and xsample
-    output1 = F(x)
-    output2 = F(x_sample)
+    output1 = x
+    output2 = x_sample
     cost = tf.reduce_mean(tf.subtract(F(x), F(x_sample)))
     return output1, output2, cost
 

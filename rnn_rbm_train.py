@@ -11,7 +11,7 @@ import midi_manipulation
 """
 
 
-batch_size = 10 #The number of trianing examples to feed into the rnn_rbm at a time
+batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a time
 epochs_to_save = 5 #The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 

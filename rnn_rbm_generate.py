@@ -22,10 +22,13 @@ import random
 num = 3 #The number of songs to generate
 
 def main(saved_weights_path,target_dir):
-
-    songsList = os.listdir(target_dir)
-    randomSong = songsList[random.randint(0,len(songsList)-1)]
-    primer_song = target_dir + '/' + randomSong #The path to the song to use to prime the network
+    if(os.path.isdir(target_dir)):
+        songsList = os.listdir(target_dir)
+        randomSong = songsList[random.randint(0,len(songsList)-1)]
+        primer_song = os.path.join(target_dir, randomSong) #The path to the song to use to prime the network
+    else:#Specific Song!
+        primer_song = target_dir
+        
     print('Primer Song = ',primer_song)
 
     #This function takes as input the path to the weights of the network

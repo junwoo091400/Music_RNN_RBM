@@ -15,7 +15,8 @@ batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a 
 epochs_to_save = 5 #The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 
-def main(num_epochs,target_dir):
+def main(num_epochs,loss_print_dir=''):
+    target_dir = 'Train_DATA'
     #First, we build the model and get pointers to the model parameters
     x, output1, output2, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
 
@@ -34,6 +35,9 @@ def main(num_epochs,target_dir):
     songs = midi_manipulation.get_songs(target_dir) #Load the songs 
 
     saver = tf.train.Saver(tvars) #We use this saver object to restore the weights of the model and save the weights every few epochs
+
+    Loss_Print_pipe = open(loss_print_dir,'w')
+
     with tf.Session() as sess:
         init = tf.initialize_all_variables()
         sess.run(init) 
@@ -51,6 +55,8 @@ def main(num_epochs,target_dir):
                     _, out1, out2, C = sess.run([updt, output1, output2, cost], feed_dict={x: tr_x, lr: alpha}) 
                     costs.append(C) 
             #Print the progress at epoch
+            if loss_print_dir != '':
+                Loss_Print_pipe.write("{},{},{},{},{}\n".format(epoch, np.mean(out1), np.mean(out2) ,np.mean(costs), time.time()-start))
             print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, np.mean(out1), np.mean(out2) ,np.mean(costs), time.time()-start)
             print
             #Here we save the weights of the model every few epochs

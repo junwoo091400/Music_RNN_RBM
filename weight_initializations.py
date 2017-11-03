@@ -57,4 +57,4 @@ def main(target_dir):
 	    save_path = saver.save(sess, "parameter_checkpoints/initialized.ckpt")
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1])

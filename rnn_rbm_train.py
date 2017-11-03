@@ -15,7 +15,7 @@ batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a 
 epochs_to_save = 5 #The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 
-def main(num_epochs):
+def main(num_epochs,target_dir):
     #First, we build the model and get pointers to the model parameters
     x, output1, output2, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
 
@@ -31,7 +31,7 @@ def main(num_epochs):
     gvs = [(tf.clip_by_value(grad, -10., 10.), var) for grad, var in gvs] #We use gradient clipping to prevent gradients from blowing up during training
     updt = opt_func.apply_gradients(gvs)#The update step involves applying the clipped gradients to the model parameters
 
-    songs = midi_manipulation.get_songs('Pop_Music_Midi') #Load the songs 
+    songs = midi_manipulation.get_songs(target_dir) #Load the songs 
 
     saver = tf.train.Saver(tvars) #We use this saver object to restore the weights of the model and save the weights every few epochs
     with tf.Session() as sess:
@@ -58,6 +58,6 @@ def main(num_epochs):
                 saver.save(sess, "parameter_checkpoints/epoch_{}.ckpt".format(epoch))
 
 if __name__ == "__main__":
-    main(int(sys.argv[1]))
+    main(int(sys.argv[1]),sys.argv[2])
 
 

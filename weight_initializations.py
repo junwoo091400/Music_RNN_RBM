@@ -16,9 +16,9 @@ import midi_manipulation
 num_epochs = 100 #The number of epochs to train the RBM
 lr = 0.01 #The learning rate for the RBM
 
-def main():
+def main(target_dir):
 	#Load the Songs
-	songs = midi_manipulation.get_songs('Pop_Music_Midi')
+	songs = midi_manipulation.get_songs(target_dir)
 
 
 	x  = tf.placeholder(tf.float32, [None, rnn_rbm.n_visible], name="x") #The placeholder variable that holds our data

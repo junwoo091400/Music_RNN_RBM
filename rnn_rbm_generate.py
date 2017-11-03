@@ -20,12 +20,14 @@ import random
 
 
 num = 3 #The number of songs to generate
-songsList = os.listdir('Pop_Music_Midi')
-randomSong = songsList[random.randint(0,len(songsList)-1)]
-primer_song = 'Pop_Music_Midi' + '/' + randomSong #The path to the song to use to prime the network
-print('Primer Song = ',primer_song)
 
-def main(saved_weights_path):
+def main(saved_weights_path,target_dir):
+
+    songsList = os.listdir(target_dir)
+    randomSong = songsList[random.randint(0,len(songsList)-1)]
+    primer_song = target_dir + '/' + randomSong #The path to the song to use to prime the network
+    print('Primer Song = ',primer_song)
+
     #This function takes as input the path to the weights of the network
     x,_,_, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()#First we build and get the parameters odf the network
 
@@ -46,5 +48,5 @@ def main(saved_weights_path):
             midi_manipulation.write_song(new_song_path, generated_music)
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1],sys.argv[2])
     

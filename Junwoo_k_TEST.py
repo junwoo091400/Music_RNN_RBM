@@ -21,8 +21,8 @@ saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the i
 
 k_list = [5,10,15]
 
-def main():
-    num_epochs = 100 # 100! (9, 19, 29, ... 99 [10 Checkpoints.])
+def main(num_epochs):
+    #num_epochs = 100 # 100! (9, 19, 29, ... 99 [10 Checkpoints.])
     target_dir = 'Train_DATA'
     #First, we build the model and get pointers to the model parameters
     songs = midi_manipulation.get_songs(target_dir) #Load the songs 
@@ -31,7 +31,7 @@ def main():
     song_primer = []
     primer_song = ['You Belong With Me - Verse.midi', 'Someone Like You - Chorus.midi', 'Pompeii - Bridge.midi']
     primer_song = [os.path.join(target_dir,p) for p in primer_song]
-    song_primer.append( midi_manipulation.get_song(primer_song[i]) for i in range(3) )
+    song_primer = [ midi_manipulation.get_song(primer_song[i]) for i in range(3) ]
 #######################
 
     for k_test in tqdm(k_list):
@@ -88,4 +88,4 @@ def main():
                 new_song_path = "music_outputs/{}_{}".format(k_test, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
                 midi_manipulation.write_song(new_song_path, generated_music)
 
-main()
+main(int(sys.argv[1]))

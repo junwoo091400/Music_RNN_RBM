@@ -19,16 +19,16 @@ def sample(probs):
 #    - When we sample our music segments from the trained RBM
 def gibbs_sample(x, W, bv, bh, k):
     #Runs a k-step gibbs chain to sample from the probability distribution of the RBM defined by W, bh, bv
-    def gibbs_step(count, k, xk):
+    def gibbs_step(count, xk):
         #Runs a single gibbs step. The visible values are initialized to xk
         hk = sample(tf.sigmoid(tf.matmul(xk, W) + bh)) #Propagate the visible values to sample the hidden values
         xk = sample(tf.sigmoid(tf.matmul(hk, tf.transpose(W)) + bv)) #Propagate the hidden values to sample the visible values
-        return count+1, k, xk
+        return count+1, xk
 
     #Run gibbs steps for k iterations
     ct = tf.constant(0) #counter
-    [_, _, x_sample] = tf.while_loop(lambda count, num_iter, *args: count < num_iter,
-                                         gibbs_step, [ct, tf.constant(k), x],None, 1, False)
+    [_, _, x_sample] = tf.while_loop(lambda count, *args: count < k, # Run k times...
+                                         gibbs_step, [ct, x], None, 1, False)
     #We need this in order to stop tensorflow from propagating gradients back through the gibbs step
     x_sample = tf.stop_gradient(x_sample)
     return x_sample

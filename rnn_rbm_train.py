@@ -17,7 +17,7 @@ batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a 
 epochs_to_save = 5 #The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 
-def main(num_epochs,loss_print_dir=''):
+def main(num_epochs,loss_print_dir):
     target_dir = 'Train_DATA'
     #First, we build the model and get pointers to the model parameters
     x, output1, output2, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
@@ -54,14 +54,14 @@ def main(num_epochs,loss_print_dir=''):
             costs = []
             start = time.time()
             for s_ind, song in enumerate(songs):
-                for i in range(1, len(song), batch_size):
+                for i in range(0, len(song), batch_size):
                     tr_x = song[i:i + batch_size] 
                     #alpha = min(0.01, 0.1/float(i)+0.001) #We decrease the learning rate according to a schedule.
                     alpha = 0.01
                     _, out1, out2, C = sess.run([updt, output1, output2, cost], feed_dict={x: tr_x, lr: alpha}) 
                     costs.append(C) 
             #Print the progress at epoch
-            if loss_print_dir != '':
+            if Loss_Print_pipe.closed() == False:
                 Loss_Print_pipe.write("{},{},{},{},{}\n".format(epoch, np.mean(out1), np.mean(out2) ,np.mean(costs), time.time()-start))
             print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, np.mean(out1), np.mean(out2) ,np.mean(costs), time.time()-start)
             print

@@ -9,14 +9,5 @@ import RBM
 import rnn_rbm_train as rrt
 POP = 'Pop_Music_Midi'
 
-import datetime
-
-matrix_size = 10000
-with tf.device("/gpu:0"):
-  A = tf.random_normal([matrix_size, matrix_size])
-  B = tf.random_normal([matrix_size, matrix_size])
-  C = tf.matmul(A, B)
-with tf.Session(config=tf.ConfigProto(log_device_placement=True)) as sess:
-  t1 = datetime.datetime.now()
-  sess.run(C)
-  t2 = datetime.datetime.now()
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())

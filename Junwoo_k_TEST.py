@@ -33,7 +33,7 @@ def main():
 #######################
 
     for k_test in tqdm(k_list):
-        x, out1, out2 cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
+        x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
 
         #The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
         tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]

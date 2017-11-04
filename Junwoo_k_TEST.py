@@ -81,11 +81,11 @@ def main(num_epochs):
                 print
                 #Here we save the weights of the model every few epochs
                 if (epoch + 1) % epochs_to_save == 0: 
-                    saver.save(sess, "parameter_checkpoints/epoch_{}.ckpt".format(epoch))
+                    saver.save(sess, "parameter_checkpoints/k{}_epoch_{}.ckpt".format(k_test,epoch))
             
             for i in tqdm(range(3)):
                 generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
-                new_song_path = "music_outputs/{}_{}".format(k_test, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
+                new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
                 midi_manipulation.write_song(new_song_path, generated_music)
 
 main(int(sys.argv[1]))

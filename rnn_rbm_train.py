@@ -60,7 +60,7 @@ def main(num_epochs,loss_print_dir):
                     _, out_1, out_2, C = sess.run([updt, out1, out2, cost], feed_dict={x: tr_x, lr: alpha}) 
                     costs.append(C) 
             #Print the progress at epoch
-            if Loss_Print_pipe.closed() == False:
+            if Loss_Print_pipe.closed == False:
                 Loss_Print_pipe.write("{},{},{},{},{}\n".format(epoch, out_1, out_2 ,np.mean(costs), time.time()-start))
             print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, out_1, out_2 ,np.mean(costs), time.time()-start)
             print

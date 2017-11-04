@@ -14,7 +14,7 @@ import ipdb
 
 
 batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a time
-epochs_to_save =  #The number of epochs to run between saving each checkpoint
+epochs_to_save = 10#The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 
 k_list = [5,10,15]
@@ -24,7 +24,7 @@ def main():
     target_dir = 'Train_DATA'
     #First, we build the model and get pointers to the model parameters
     songs = midi_manipulation.get_songs(target_dir) #Load the songs 
-    
+
 #######################
     song_primer = []
     primer_song = ['You Belong With Me - Verse.midi', 'Someone Like You - Chorus.midi', 'Pompeii - Bridge.midi']

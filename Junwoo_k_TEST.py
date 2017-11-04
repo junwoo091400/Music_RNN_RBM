@@ -34,7 +34,8 @@ def main(num_epochs):
     song_primer = [ midi_manipulation.get_song(primer_song[i]) for i in range(3) ]
 #######################
 
-    for k_test in tqdm(k_list):
+    for k_test in k_list:
+        print('Doing K as:',k_test)
         x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
 
         #The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
@@ -87,5 +88,6 @@ def main(num_epochs):
                 generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
                 new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
                 midi_manipulation.write_song(new_song_path, generated_music)
+        Loss_Print_pipe.close()#Close Exporing Pipe.
 
 main(int(sys.argv[1]))

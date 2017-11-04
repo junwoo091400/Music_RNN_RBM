@@ -8,6 +8,8 @@ import midi_manipulation
 
 import ipdb
 
+import os
+
 """
     This file contains the code for training the RNN-RBM by using the data in the Pop_Music_Midi directory
 """

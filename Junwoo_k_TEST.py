@@ -35,6 +35,7 @@ def main(num_epochs):
 #######################
 
     for k_test in k_list:
+        ipdb.set_trace()
         print('Doing K as:',k_test)
         x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
 

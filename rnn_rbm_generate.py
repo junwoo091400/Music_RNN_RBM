@@ -32,7 +32,7 @@ def main(saved_weights_path,target_dir):
     print('Primer Song = ',primer_song)
 
     #This function takes as input the path to the weights of the network
-    x,_,_, cost, generate, W, bh, bv, x, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()#First we build and get the parameters odf the network
+    x,_,_, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()#First we build and get the parameters odf the network
 
     tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]
 

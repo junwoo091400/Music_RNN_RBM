@@ -35,7 +35,7 @@ def main(num_epochs):
 #######################
 
     for k_test in k_list:
-        ipdb.set_trace()
+        #ipdb.set_trace()
         print('Doing K as:',k_test)
         x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
 
@@ -59,6 +59,8 @@ def main(num_epochs):
         with tf.Session() as sess:
             init = tf.initialize_all_variables()
             sess.run(init) 
+            os.system("weight_initializations.py")
+
             saver.restore(sess, saved_weights_path) #Here we load the initial weights of the model that we created with weight_initializations.py
 
             #We run through all of the songs n_epoch times

@@ -59,7 +59,7 @@ def main(num_epochs):
         with tf.Session() as sess:
             init = tf.initialize_all_variables()
             sess.run(init) 
-            os.system("weight_initializations.py")
+            os.system("python weight_initializations.py")
 
             saver.restore(sess, saved_weights_path) #Here we load the initial weights of the model that we created with weight_initializations.py
 

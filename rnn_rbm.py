@@ -107,4 +107,4 @@ def rnnrbm(k_input):
     BH_t = tf.reshape(tf.scan(hidden_bias_recurrence, u_t, tf.zeros([1, n_hidden], tf.float32)), [size_bt, n_hidden])
     #Get the free energy cost from each of the RBMs in the batch 
     cost = RBM.get_free_energy_cost(x, W, BV_t, BH_t, k=k_input)
-    return x, out1, out2 cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0
+    return x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0

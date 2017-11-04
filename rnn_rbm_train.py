@@ -6,6 +6,8 @@ from tqdm import tqdm
 import rnn_rbm
 import midi_manipulation 
 
+import ipdb
+
 """
     This file contains the code for training the RNN-RBM by using the data in the Pop_Music_Midi directory
 """
@@ -37,6 +39,9 @@ def main(num_epochs,loss_print_dir=''):
     saver = tf.train.Saver(tvars, max_to_keep=None) #We use this saver object to restore the weights of the model and save the weights every few epochs
 
     Loss_Print_pipe = open(loss_print_dir,'w')
+
+    print('ipdb initiate!')
+    ipdb.set_trace()
 
     with tf.Session() as sess:
         init = tf.initialize_all_variables()

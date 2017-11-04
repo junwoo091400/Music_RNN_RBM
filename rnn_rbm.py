@@ -8,6 +8,7 @@ from tqdm import tqdm
 import RBM
 import midi_manipulation
 
+import ipdb
 
 """
     This file contains the TF implementation of the RNN-RBM, as well as the hyperparameters of the model
@@ -19,7 +20,7 @@ n_hidden           = 50 #The size of the RBM hidden layer
 n_hidden_recurrent = 100 #The size of each RNN hidden layer
 
 def rnnrbm():
-
+    ipdb.set_trace()
     #This function builds the RNN-RBM and returns the parameters of the model
 
     x  = tf.placeholder(tf.float32, [None, n_visible]) #The placeholder variable that holds our data

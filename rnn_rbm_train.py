@@ -40,7 +40,6 @@ def main(num_epochs,loss_print_dir):
 
     Loss_Print_pipe = open(loss_print_dir,'w')
 
-    print('ipdb initiate!')
     ipdb.set_trace()
 
     with tf.Session() as sess:

@@ -22,7 +22,7 @@ y = (tf.matmul(x,W) + bh)
 sess = tf.Session()
 init = tf.global_variables_initializer()
 sess.run(init)
-result = sess.run(y,feed_dict = {x:[[5.,6.]]})
+result = sess.run(y,feed_dict = {x:[[5.],[6.]]})
 
 
 print result

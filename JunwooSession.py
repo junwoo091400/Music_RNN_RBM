@@ -15,18 +15,14 @@ n_hidden = 5
 W   = tf.Variable(tf.zeros([n_visible, n_hidden]), name="W")
 x  = tf.placeholder(tf.float32, [2, n_visible])
 
-bh  = tf.Variable(tf.zeros([1, n_hidden]), name="bh")
+bh  = tf.Variable([[1,2,3,4,5]])
 
-x = tf.constant([ [1.0,2.0,3.0] ])
-w = tf.constant([ [2.0],[2.0],[2.0] ])
-y = tf.matmul(x,w)
-print x.get_shape()
-
+y = (tf.matmul(x,W) + bh)
 
 sess = tf.Session()
 init = tf.global_variables_initializer()
 sess.run(init)
-result = sess.run(y)
+result = sess.run(y,feed_dict = {x:[5,6]})
 
 
 print result

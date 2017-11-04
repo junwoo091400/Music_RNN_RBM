@@ -51,7 +51,8 @@ def main(num_epochs,loss_print_dir=''):
             for s_ind, song in enumerate(songs):
                 for i in range(1, len(song), batch_size):
                     tr_x = song[i:i + batch_size] 
-                    alpha = min(0.01, 0.1/float(i)) #We decrease the learning rate according to a schedule.
+                    #alpha = min(0.01, 0.1/float(i)+0.001) #We decrease the learning rate according to a schedule.
+                    alpha = 0.01
                     _, out1, out2, C = sess.run([updt, output1, output2, cost], feed_dict={x: tr_x, lr: alpha}) 
                     costs.append(C) 
             #Print the progress at epoch

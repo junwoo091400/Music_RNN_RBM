@@ -9,6 +9,7 @@ import RBM
 import rnn_rbm_train as rrt
 POP = 'Pop_Music_Midi'
 
+matrix_size = 10000
 with tf.device("/gpu:0"):
   A = tf.random_normal([matrix_size, matrix_size])
   B = tf.random_normal([matrix_size, matrix_size])

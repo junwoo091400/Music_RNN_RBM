@@ -27,7 +27,7 @@ def gibbs_sample(x, W, bv, bh, k):
 
     #Run gibbs steps for k iterations
     ct = tf.constant(0) #counter
-    [_, _, x_sample] = tf.while_loop(lambda count, *args: count < k, # Run k times...
+    [_, x_sample] = tf.while_loop(lambda count, *args: count < k, # Run k times...
                                          gibbs_step, [ct, x], None, 1, False)
     #We need this in order to stop tensorflow from propagating gradients back through the gibbs step
     x_sample = tf.stop_gradient(x_sample)

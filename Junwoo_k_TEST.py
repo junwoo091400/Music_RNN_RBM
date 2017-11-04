@@ -74,6 +74,7 @@ def main():
                 #Print the progress at epoch
                 if Loss_Print_pipe.closed == False:
                     Loss_Print_pipe.write("{},{},{},{},{}\n".format(epoch, out_1, out_2 ,np.mean(costs), time.time()-start))
+                ipdb.set_trace()
                 print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, out_1, out_2 ,np.mean(costs), time.time()-start)
                 print
                 #Here we save the weights of the model every few epochs

@@ -12,7 +12,7 @@ POP = 'Pop_Music_Midi'
 n_visible = 1
 n_hidden = 5
 
-W   = tf.Variable(tf.zeros([n_visible, n_hidden]),dtype = tf.int32, name="W")
+W   = tf.Variable([np.zeros([n_visible, n_hidden])],dtype = tf.int32, name="W")
 x  = tf.placeholder(tf.int32, [2, n_visible])
 
 bh  = tf.Variable([[1,2,3,4,5]],dtype = tf.int32)

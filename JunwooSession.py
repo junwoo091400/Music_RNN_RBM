@@ -12,17 +12,17 @@ POP = 'Pop_Music_Midi'
 n_visible = 1
 n_hidden = 5
 
-W   = tf.Variable([np.zeros([n_visible, n_hidden])],dtype = tf.int32, name="W")
-x  = tf.placeholder(tf.int32, [2, n_visible])
+W   = tf.Variable(tf.zeros([n_visible, n_hidden]), name="W")
+x  = tf.placeholder([2, n_visible])
 
-bh  = tf.Variable([[1,2,3,4,5]],dtype = tf.int32)
+bh  = tf.Variable([[1.,2.,3.,4.,5.]])
 
 y = (tf.matmul(x,W) + bh)
 
 sess = tf.Session()
 init = tf.global_variables_initializer()
 sess.run(init)
-result = sess.run(y,feed_dict = {x:[5,6]})
+result = sess.run(y,feed_dict = {x:[5.,6.]})
 
 
 print result

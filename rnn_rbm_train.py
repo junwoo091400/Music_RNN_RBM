@@ -34,7 +34,7 @@ def main(num_epochs,loss_print_dir=''):
 
     songs = midi_manipulation.get_songs(target_dir) #Load the songs 
 
-    saver = tf.train.Saver(tvars) #We use this saver object to restore the weights of the model and save the weights every few epochs
+    saver = tf.train.Saver(tvars, max_to_keep = num_epochs//epochs_to_save) #We use this saver object to restore the weights of the model and save the weights every few epochs
 
     Loss_Print_pipe = open(loss_print_dir,'w')
 

@@ -60,8 +60,6 @@ def main(num_epochs, k_test):
             generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
             new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
             midi_manipulation.write_song(new_song_path, generated_music)
-            original_song_path = "music_outputs/{}".format(primer_song[i].split('/')[-1].split('.')[0])
-            midi_manipulation.write_song(original_song_path, song_primer[i])
 
     with tf.Session() as sess:
         init = tf.initialize_all_variables()
@@ -70,8 +68,14 @@ def main(num_epochs, k_test):
 
         saver.restore(sess, saved_weights_path) #Here we load the initial weights of the model that we created with weight_initializations.py
 
+        print("First, we print these songs as they are. Natural Baby!")
+        for i in range(3):
+            original_song_path = "music_outputs/{}".format(primer_song[i].split('/')[-1].split('.')[0])
+            midi_manipulation.write_song(original_song_path, song_primer[i])
+
         #We run through all of the songs n_epoch times
         print "starting"
+
         for epoch in range(num_epochs):
             costs = []
             start = time.time()

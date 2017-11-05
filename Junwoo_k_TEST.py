@@ -55,6 +55,14 @@ def main(num_epochs, k_test):
     loss_print_dir = 'k{}_lossprint.csv'.format(k_test)
     Loss_Print_pipe = open(loss_print_dir,'w')
 
+    def Generate_Music(k_test,epoch):
+        for i in tqdm(range(3)):
+            generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
+            new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
+            midi_manipulation.write_song(new_song_path, generated_music)
+            original_song_path = "music/outputs/{}".foramt(primer_song[i].split('/')[-1].split('.')[0])
+            midi_manipulation.write_song(original_song_path, song_primer[i])
+
     with tf.Session() as sess:
         init = tf.initialize_all_variables()
         sess.run(init) 
@@ -85,11 +93,7 @@ def main(num_epochs, k_test):
             #Here we save the weights of the model every few epochs
             if (epoch + 1) % epochs_to_save == 0: 
                 saver.save(sess, "parameter_checkpoints/k{}_epoch_{}.ckpt".format(k_test,epoch))
-        
-        for i in tqdm(range(3)):
-            generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
-            new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
-            midi_manipulation.write_song(new_song_path, generated_music)
+                Generate_Music(k_test,epoch)
     Loss_Print_pipe.close()#Close Exporing Pipe.
 
 main(int(sys.argv[1]),int(sys.argv[2]))

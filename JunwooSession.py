@@ -7,22 +7,11 @@ import rnn_rbm
 import midi_manipulation as mma
 import RBM
 import rnn_rbm_train as rrt
-POP = 'Pop_Music_Midi'
 
-n_visible = 1
-n_hidden = 5
+def main(target_dir):
+	print('Generating Music from Music, just plain matrixifing,,, lol')
+	matrixified = mma.get_song(target_dir)
+	exportDir = "music_outputs/{}".foramt(target_dir.split('/')[-1].split('.')[0])
+	mma.write_song(exportDir,matrixified)
 
-W   = tf.Variable(tf.zeros([n_visible, n_hidden]), name="W")
-x  = tf.placeholder(tf.float32, [2, n_visible])
-
-bh  = tf.Variable([[1.,2.,3.,4.,5.]])
-
-y = (tf.matmul(x,W) + bh)
-
-sess = tf.Session()
-init = tf.global_variables_initializer()
-sess.run(init)
-result = sess.run(y,feed_dict = {x:[[5.],[6.]]})
-
-
-print result
+main(sys.argv[1])

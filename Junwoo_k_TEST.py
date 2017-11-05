@@ -60,7 +60,7 @@ def main(num_epochs, k_test):
             generated_music = sess.run(generate(300), feed_dict={x: song_primer[i]}) #Prime the network with song primer and generate an original song
             new_song_path = "music_outputs/k{}_e{}_{}".format(k_test, epoch, primer_song[i].split('/')[-1].split('.')[0]) #The new song will be saved here
             midi_manipulation.write_song(new_song_path, generated_music)
-            original_song_path = "music/outputs/{}".foramt(primer_song[i].split('/')[-1].split('.')[0])
+            original_song_path = "music_outputs/{}".foramt(primer_song[i].split('/')[-1].split('.')[0])
             midi_manipulation.write_song(original_song_path, song_primer[i])
 
     with tf.Session() as sess:

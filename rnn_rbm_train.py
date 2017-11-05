@@ -20,7 +20,7 @@ saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the i
 def main(num_epochs,loss_print_dir):
     target_dir = 'Train_DATA'
     #First, we build the model and get pointers to the model parameters
-    x, out1, out2 cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
+    x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
 
     #The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
     tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]

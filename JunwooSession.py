@@ -8,6 +8,8 @@ import midi_manipulation as mma
 import RBM
 import rnn_rbm_train as rrt
 
+import midi
+
 lowerBound = 24 #The lowest note
 upperBound = 102 #The highest note
 span = upperBound-lowerBound #The note range

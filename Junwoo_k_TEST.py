@@ -39,7 +39,7 @@ def main(num_epochs, k_test):
     x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_test)
 
     #The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
-    tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]
+    tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0] 
     # opt_func = tf.train.AdamOptimizer(learning_rate=lr) 
     # grads, _ = tf.clip_by_global_norm(tf.gradients(cost, tvars), 1)
     # updt = opt_func.apply_gradients(zip(grads, tvars)) 

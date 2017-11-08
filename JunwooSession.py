@@ -69,7 +69,7 @@ def main(target_dir,chan):
 	print('Generating Music from Music, just plain matrixifing,,, lol')
 	print('You Entered : *',target_dir,'*')
 	matrixified = mma.get_song(target_dir)
-	exportDir = "music_outputs/{}".format(target_dir.split('/')[-1].split('.')[0])
+	exportDir = "music_outputs/chan{}_{}".format(chan,target_dir.split('/')[-1].split('.')[0])
 	write_song(exportDir,matrixified,chan)
 
 main(sys.argv[1],int(sys.argv[2]))

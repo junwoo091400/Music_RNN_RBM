@@ -18,9 +18,9 @@ num_timesteps      = 5 #The number of note timesteps that we produce with each R
 def write_song(path, song,chan):
     #Reshape the song into a format that midi_manipulation can understand, and then write the song to disk
     song = np.reshape(song, (song.shape[0]*num_timesteps, 2*span))
-    noteStateMatrixToMidi(song, name=path,chan=chan)
+    noteStateMatrixToMidi(song,chan=chan,, name=path,)
 
-def noteStateMatrixToMidi(statematrix, name="example", span=span,chan):
+def noteStateMatrixToMidi(statematrix,chan, name="example", span=span):
     statematrix = np.array(statematrix)
     if not len(statematrix.shape) == 3:
         statematrix = np.dstack((statematrix[:, :span], statematrix[:, span:]))

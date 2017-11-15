@@ -46,7 +46,11 @@ def main(saved_weights_path,target_dir,kval):
 		saver.restore(sess, saved_weights_path) #load the saved weights of the network
 		# Generate songs
 		generated_music = sess.run(generate(300,k_in = kval), feed_dict={x: song_primer}) #Prime the network with song primer and generate an original song
-		new_song_path = "music_outputs/genK={}_{}".format(kval, primer_song.split('/')[-1].split('.')[0]) #The new song will be saved here
+		
+		saved_weight_name = saved_weights_path.split('/')[-1].split('.')[0]
+		primer_song_name = primer_song.split('/')[-1].split('.')[0]
+		
+		new_song_path = "music_outputs/S={}K={}_{}".format(saved_weight_name,kval,primer_song_name) #The new song will be saved here
 		midi_manipulation.write_song(new_song_path, generated_music)
 
 if __name__ == "__main__":

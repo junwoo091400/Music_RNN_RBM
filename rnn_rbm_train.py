@@ -39,6 +39,8 @@ def main(num_epochs,loss_print_dir):
 	saver = tf.train.Saver(tvars, max_to_keep=None) #We use this saver object to restore the weights of the model and save the weights every few epochs
 
 	Loss_Print_pipe = open(loss_print_dir,'w')
+	Loss_Print_pipe.write('num_epochs,loss_print_dir\n')
+	Loss_Print_pipe.write('{},{}\n'.format(num_epochs,loss_print_dir))
 	Loss_Print_pipe.write('epoch,out_1,out_2,costs,Timetaken\n')
 	with tf.Session() as sess:
 		init = tf.initialize_all_variables()
@@ -51,7 +53,7 @@ def main(num_epochs,loss_print_dir):
 			costs = []
 			start = time.time()
 			for s_ind, song in enumerate(songs):
-				for i in range(1, len(song), batch_size):
+				for i in range(1, len(song), batch_size):# Why start with '1' ???
 					tr_x = song[i:i + batch_size] 
 					alpha = min(0.01, 0.1/float(i)+0.001) #We decrease the learning rate according to a schedule.
 					_, out_1, out_2, C = sess.run([updt, out1, out2, cost], feed_dict={x: tr_x, lr: alpha}) 

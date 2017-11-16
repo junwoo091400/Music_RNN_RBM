@@ -58,7 +58,6 @@ def main(num_epochs,loss_print_dir,k_input):
 					alpha = min(0.01, 0.1/float(i)+0.001) #We decrease the learning rate according to a schedule.
 					_, out_1, out_2, C = sess.run([updt, out1, out2, cost], feed_dict={x: tr_x, lr: alpha}) 
 					costs.append(C) 
-					ipdb.set_trace()#Wanna see out_1
 			#Print the progress at epoch
 
 			if Loss_Print_pipe.closed == False:

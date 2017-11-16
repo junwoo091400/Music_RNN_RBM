@@ -50,7 +50,7 @@ def main(saved_weights_path,target_dir,kval):
 		saved_weight_name = saved_weights_path.split('/')[-1].split('.')[0]
 		primer_song_name = primer_song.split('/')[-1].split('.')[0]
 		
-		new_song_path = "music_outputs/S={}K={}_{}".format(saved_weight_name,kval,primer_song_name) #The new song will be saved here
+		new_song_path = "music_outputs/Name={}_K={}_{}".format(saved_weight_name,kval,primer_song_name) #The new song will be saved here
 		midi_manipulation.write_song(new_song_path, generated_music)
 
 if __name__ == "__main__":

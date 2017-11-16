@@ -19,9 +19,9 @@ n_visible          = 2*note_range*midi_manipulation.num_timesteps #The size of e
 n_hidden           = 50 #The size of the RBM hidden layer
 n_hidden_recurrent = 100 #The size of each RNN hidden layer
 
-k_input = 15
+#k_input = 15
 
-def rnnrbm():
+def rnnrbm(k_input = 15):
 	#This function builds the RNN-RBM and returns the parameters of the model
 
 	x  = tf.placeholder(tf.float32, [None, n_visible]) #The placeholder variable that holds our data
@@ -108,5 +108,5 @@ def rnnrbm():
 	BV_t = tf.reshape(tf.scan(visible_bias_recurrence, u_t, tf.zeros([1, n_visible], tf.float32)), [size_bt, n_visible])
 	BH_t = tf.reshape(tf.scan(hidden_bias_recurrence, u_t, tf.zeros([1, n_hidden], tf.float32)), [size_bt, n_hidden])
 	#Get the free energy cost from each of the RBMs in the batch 
-	out1, out2, cost = RBM.get_free_energy_cost(x, W, BV_t, BH_t, k=k_input)
+	out1, out2, cost = RBM.get_free_energy_cost(x, W, BV_t, BH_t, k=k_input)#k 15...
 	return x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0

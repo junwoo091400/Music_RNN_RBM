@@ -28,15 +28,15 @@ def gibbs_sample(x, W, bv, bh, k):
 	#Run gibbs steps for k iterations
 	ct = tf.constant(0) #counter
 	[_, x_sample] = tf.while_loop(lambda count, *args: count < k, # Run k times...
-										 gibbs_step, [ct, x], None, 1, False)
+										 gibbs_step, [ct, x], None, 1, False)#shape_invariants(None), parallel_iterations(1), back_prop = False.
 	#We need this in order to stop tensorflow from propagating gradients back through the gibbs step
 	x_sample = tf.stop_gradient(x_sample)
 	return x_sample
 
-def get_free_energy_cost(x, W, bv, bh, k):   
+def get_free_energy_cost(x, W, bv, bh, k):
 	#We use this function in training to get the free energy cost of the RBM. We can pass this cost directly into TensorFlow's optimizers 
 	#First, draw a sample from the RBM
-	x_sample   = gibbs_sample(x, W, bv, bh, k)
+	x_sample   = gibbs_sample(x, W, bv, bh, k) # [batch_size x x_span]
 
 	def F(xx):
 		#The function computes the free energy of a visible vector. 
@@ -46,7 +46,7 @@ def get_free_energy_cost(x, W, bv, bh, k):
 	#The cost is based on the difference in free energy between x and xsample
 	out1 = F(x)
 	out2 = F(x_sample)
-	cost = tf.reduce_mean(tf.abs(tf.subtract(out1,out2)))
+	cost = tf.abs(tf.reduce_mean(tf.subtract(out1,out2)))
 	#cost = tf.reduce_mean(tf.abs(tf.subtract(out1,out2)))
 	return out1, out2, cost
 

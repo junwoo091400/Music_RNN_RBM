@@ -14,13 +14,13 @@ import ipdb
 
 
 batch_size = 100 #The number of trianing examples to feed into the rnn_rbm at a time
-epochs_to_save = 10 #The number of epochs to run between saving each checkpoint
+epochs_to_save = 25 #The number of epochs to run between saving each checkpoint
 saved_weights_path = "parameter_checkpoints/initialized.ckpt" #The path to the initialized weights checkpoint file
 
-def main(num_epochs,loss_print_dir):
+def main(num_epochs,loss_print_dir,k_input):
 	target_dir = 'Train_DATA'
 	#First, we build the model and get pointers to the model parameters
-	x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm()
+	x, out1, out2, cost, generate, W, bh, bv, lr, Wuh, Wuv, Wvu, Wuu, bu, u0 = rnn_rbm.rnnrbm(k_input)
 
 	#The trainable variables include the weights and biases of the RNN and the RBM, as well as the initial state of the RNN
 	tvars = [W, Wuh, Wuv, Wvu, Wuu, bh, bv, bu, u0]
@@ -38,9 +38,9 @@ def main(num_epochs,loss_print_dir):
 
 	saver = tf.train.Saver(tvars, max_to_keep=None) #We use this saver object to restore the weights of the model and save the weights every few epochs
 
-	Loss_Print_pipe = open(loss_print_dir,'w')
-	Loss_Print_pipe.write('num_epochs,loss_print_dir\n')
-	Loss_Print_pipe.write('{},{}\n'.format(num_epochs,loss_print_dir))
+	Loss_Print_pipe = open(loss_print_dir,'w',1)#Flush every 'newline'
+	Loss_Print_pipe.write('k,num_epochs,loss_print_dir,songs_count\n')
+	Loss_Print_pipe.write('{},{},{},{}\n'.format(k_input,num_epochs,loss_print_dir,len(songs)))
 	Loss_Print_pipe.write('epoch,out_1,out_2,costs,Timetaken\n')
 	with tf.Session() as sess:
 		init = tf.initialize_all_variables()
@@ -49,7 +49,7 @@ def main(num_epochs,loss_print_dir):
 
 		#We run through all of the songs n_epoch times
 		print "starting"
-		for epoch in range(num_epochs):
+		for epoch in range(1,num_epochs+1):
 			costs = []
 			start = time.time()
 			for s_ind, song in enumerate(songs):
@@ -65,10 +65,10 @@ def main(num_epochs,loss_print_dir):
 			print "epoch: {} out1: {} out2:{} cost: {} time: {}".format(epoch, np.mean(out_1), np.mean(out_2) ,np.mean(costs), time.time()-start)
 			print
 			#Here we save the weights of the model every few epochs
-			if (epoch + 1) % epochs_to_save == 0: 
-				saver.save(sess, "parameter_checkpoints/epoch_{}.ckpt".format(epoch))
+			if epoch % epochs_to_save == 0: 
+				saver.save(sess, "parameter_checkpoints/k_{}_e_{}.ckpt".format(k_input,epoch))
 
 if __name__ == "__main__":
-	main(int(sys.argv[1]),sys.argv[2])
+	main(int(sys.argv[1]),sys.argv[2],int(sys.argv[3]))
 
 

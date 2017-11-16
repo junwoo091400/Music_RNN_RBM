@@ -60,7 +60,7 @@ def rnnrbm(k_input = 15):
 		bh_t = tf.add(bh, tf.matmul(u_tm1, Wuh))
 		return bh_t       
 
-	def generate_recurrence(count, num, u_tm1, primer, x, music,k_in):
+	def generate_recurrence(count, num, u_tm1, primer, x, music, k_in):
 		#This function builds and runs the gibbs steps for each RBM in the chain to generate music
 		#Get the bias vectors from the current state of the RNN
 		bv_t = tf.add(bv, tf.matmul(u_tm1, Wuv))
@@ -68,7 +68,7 @@ def rnnrbm(k_input = 15):
 
 		#Run the Gibbs step to get the music output. Prime the RBM with the previous musical output.
 		x_out = RBM.gibbs_sample(primer, W, bv_t, bh_t, k=k_in)
-		
+
 		#Update the RNN hidden state based on the musical output and current hidden state.
 		u_t  = (tf.tanh(bu + tf.matmul(x_out, Wvu) + tf.matmul(u_tm1, Wuu)))
 
@@ -97,6 +97,7 @@ def rnnrbm(k_input = 15):
 														 tf.zeros([1, n_visible], tf.float32), x, 
 														 tf.zeros([1, n_visible],  tf.float32), tf.constant(k_in)],[tf.TensorShape([]),
 							tf.TensorShape([]),U.shape,tf.TensorShape([1,n_visible]),x.shape,tf.TensorShape([None,n_visible]),tf.TensorShape([])])
+							
 		return music
 
 	#Reshape our bias matrices to be the same size as the batch.

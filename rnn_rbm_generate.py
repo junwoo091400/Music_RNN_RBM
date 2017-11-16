@@ -45,7 +45,7 @@ def main(saved_weights_path,target_dir,kval):
 		sess.run(init)
 		saver.restore(sess, saved_weights_path) #load the saved weights of the network
 		# Generate songs
-		generated_music = sess.run(generate(300,k_in = kval), feed_dict={x: song_primer}) #Prime the network with song primer and generate an original song
+		generated_music = sess.run(generate(300, k_in = kval), feed_dict={x: song_primer}) #Prime the network with song primer and generate an original song
 		
 		saved_weight_name = saved_weights_path.split('/')[-1].split('.')[0]
 		primer_song_name = primer_song.split('/')[-1].split('.')[0]
